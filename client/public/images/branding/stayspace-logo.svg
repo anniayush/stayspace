@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 240" role="img" aria-labelledby="title desc">
+  <title id="title">StaySpace logo</title>
+  <desc id="desc">StaySpace wordmark with a rounded house icon and horizon lines.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f766e" />
+      <stop offset="100%" stop-color="#164e63" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f8fafc" />
+      <stop offset="100%" stop-color="#cbd5e1" />
+    </linearGradient>
+  </defs>
+  <rect width="640" height="240" rx="36" fill="#f8fafc" />
+  <g transform="translate(28 28)">
+    <rect width="184" height="184" rx="32" fill="url(#bg)" />
+    <path
+      d="M42 103.5 92 61l50 42.5v44.5c0 4.4-3.6 8-8 8H50c-4.4 0-8-3.6-8-8z"
+      fill="#f8fafc"
+    />
+    <path d="M32 103 92 52l60 51" fill="none" stroke="#f8fafc" stroke-linecap="round" stroke-linejoin="round" stroke-width="10" />
+    <path d="M74 156v-32c0-10 8-18 18-18s18 8 18 18v32" fill="none" stroke="#0f766e" stroke-linecap="round" stroke-width="10" />
+    <path d="M48 142h28" fill="none" stroke="#cbd5e1" stroke-linecap="round" stroke-width="8" />
+    <path d="M114 142h20" fill="none" stroke="#cbd5e1" stroke-linecap="round" stroke-width="8" />
+  </g>
+  <g transform="translate(242 74)">
+    <text
+      x="0"
+      y="56"
+      fill="#0f172a"
+      font-family="Avenir Next, Montserrat, Poppins, sans-serif"
+      font-size="60"
+      font-weight="700"
+      letter-spacing="1"
+    >
+      StaySpace
+    </text>
+    <path d="M2 86h268" fill="none" stroke="url(#accent)" stroke-linecap="round" stroke-width="10" />
+    <text
+      x="2"
+      y="124"
+      fill="#475569"
+      font-family="Avenir Next, Montserrat, Poppins, sans-serif"
+      font-size="24"
+      font-weight="500"
+      letter-spacing="3"
+    >
+      CURATED STAYS WORLDWIDE
+    </text>
+  </g>
+</svg>

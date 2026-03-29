@@ -1,0 +1,71 @@
+import jwt from "jsonwebtoken";
+import User from "../models/User.js";
+
+const createToken = (userId) =>
+  jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: "7d" });
+
+const sendAuthResponse = (res, user, statusCode) => {
+  const token = createToken(user._id);
+
+  res
+    .cookie("token", token, {
+      httpOnly: true,
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 7 * 24 * 60 * 60 * 1000
+    })
+    .status(statusCode)
+    .json({
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        avatar: user.avatar
+      }
+    });
+};
+
+export const registerUser = async (req, res) => {
+  try {
+    const { name, email, password } = req.body;
+
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "User already exists" });
+    }
+
+    const user = await User.create({ name, email, password });
+    sendAuthResponse(res, user, 201);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+
+    if (!user || !(await user.matchPassword(password))) {
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
+
+    sendAuthResponse(res, user, 200);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getProfile = async (req, res) => {
+  res.json(req.user);
+};
+
+export const logoutUser = async (req, res) => {
+  res
+    .cookie("token", "", {
+      httpOnly: true,
+      expires: new Date(0)
+    })
+    .json({ message: "Logged out" });
+};
