@@ -148,6 +148,10 @@ button {
 
 .hero-stat {
   padding: 1rem 1.1rem;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease;
 }
 
 .hero-stat strong {
@@ -283,6 +287,10 @@ button {
 
 .trust-card {
   padding: 1.3rem;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease;
 }
 
 .trust-card h3 {
@@ -300,6 +308,31 @@ button {
   border-radius: 28px;
   background: rgba(255, 255, 255, 0.75);
   border: 1px solid rgba(31, 27, 22, 0.08);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease;
+}
+
+.listing-card:hover,
+.listing-card:focus-visible {
+  transform: translateY(-6px);
+  border-color: rgba(31, 107, 82, 0.18);
+  box-shadow: 0 28px 70px rgba(42, 32, 22, 0.14);
+}
+
+.hero-stat:hover,
+.trust-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 26px 60px rgba(42, 32, 22, 0.12);
+}
+
+.hero-stat:hover {
+  background: rgba(255, 255, 255, 0.88);
+}
+
+.trust-card:hover {
+  border-color: rgba(31, 107, 82, 0.18);
 }
 
 .listing-card__image,
