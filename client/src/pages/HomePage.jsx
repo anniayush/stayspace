@@ -14,6 +14,20 @@ const HomePage = () => {
     { label: "Countries", value: "9" },
     { label: "Instant booking", value: "24/7" }
   ];
+  const trustNotes = [
+    {
+      title: "Smooth check-in",
+      copy: "Guests can book and confirm stays fast, without waiting on slow manual responses."
+    },
+    {
+      title: "Design-first homes",
+      copy: "The collection prioritizes properties that feel thoughtful, calm, and worth the trip."
+    },
+    {
+      title: "Global mix",
+      copy: "From hill escapes to beach houses, the catalog now spans multiple countries and stay styles."
+    }
+  ];
 
   useEffect(() => {
     const loadListings = async () => {
@@ -101,6 +115,16 @@ const HomePage = () => {
             <p>Try a different city, country, or category to see more options.</p>
           </div>
         )}
+      </section>
+
+      <section className="trust-strip">
+        {trustNotes.map((item) => (
+          <article className="trust-card panel" key={item.title}>
+            <p className="eyebrow">Why StaySpace</p>
+            <h3>{item.title}</h3>
+            <p>{item.copy}</p>
+          </article>
+        ))}
       </section>
     </div>
   );
