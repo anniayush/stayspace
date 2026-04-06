@@ -15,7 +15,12 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="page auth-page">
+    <div className="page auth-page login-page">
+      <div className="login-page__art" aria-hidden="true">
+        <div className="login-page__shape login-page__shape--orb" />
+        <div className="login-page__shape login-page__shape--diamond" />
+        <div className="login-page__shape login-page__shape--ring" />
+      </div>
       <AuthForm
         footer={
           <>
