@@ -92,6 +92,25 @@ button {
   font-weight: 700;
 }
 
+.nav-login {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 84px;
+  min-height: 84px;
+  padding: 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(31, 27, 22, 0.14);
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 12px 30px rgba(31, 27, 22, 0.08);
+}
+
+.nav-login.active {
+  background: #1f6b52;
+  border-color: #1f6b52;
+  color: #fff;
+}
+
 .user-chip,
 .category-pill,
 .amenity-pill {
