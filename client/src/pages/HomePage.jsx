@@ -9,6 +9,11 @@ const HomePage = () => {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   const [error, setError] = useState("");
+  const featuredStats = [
+    { label: "Curated homes", value: "28+" },
+    { label: "Countries", value: "9" },
+    { label: "Instant booking", value: "24/7" }
+  ];
 
   useEffect(() => {
     const loadListings = async () => {
@@ -37,6 +42,14 @@ const HomePage = () => {
           <p className="hero-copy">
             Browse standout properties, sign in securely, and complete your stay with integrated payments.
           </p>
+          <div className="hero-stats">
+            {featuredStats.map((item) => (
+              <article className="hero-stat panel" key={item.label}>
+                <strong>{item.value}</strong>
+                <span>{item.label}</span>
+              </article>
+            ))}
+          </div>
         </div>
         <div className="hero-search panel">
           <input
@@ -68,10 +81,26 @@ const HomePage = () => {
 
       {error ? <p className="form-error">{error}</p> : null}
 
+      <section className="discovery-banner panel">
+        <div>
+          <p className="eyebrow">This week on StaySpace</p>
+          <h2>Browse hill escapes, coastal villas, and design-forward city homes.</h2>
+        </div>
+        <p>
+          Use the filters to narrow by category, or search by title, city, and country to find the right stay
+          faster.
+        </p>
+      </section>
+
       <section className="listing-grid">
-        {listings.map((listing) => (
-          <ListingCard key={listing._id} listing={listing} />
-        ))}
+        {listings.length ? (
+          listings.map((listing) => <ListingCard key={listing._id} listing={listing} />)
+        ) : (
+          <div className="empty-results panel">
+            <h2>No stays match this search.</h2>
+            <p>Try a different city, country, or category to see more options.</p>
+          </div>
+        )}
       </section>
     </div>
   );
