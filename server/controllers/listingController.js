@@ -24,6 +24,22 @@ export const getListings = async (req, res) => {
   }
 };
 
+export const getListingMeta = async (_req, res) => {
+  try {
+    const [categories, totalListings] = await Promise.all([
+      Listing.distinct("category"),
+      Listing.countDocuments()
+    ]);
+
+    res.json({
+      totalListings,
+      categories: categories.sort((left, right) => left.localeCompare(right))
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 export const getListingById = async (req, res) => {
   try {
     const listing = await Listing.findById(req.params.id);
