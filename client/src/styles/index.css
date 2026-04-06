@@ -41,6 +41,11 @@ button {
   min-height: 100vh;
 }
 
+.app-shell {
+  display: flex;
+  flex-direction: column;
+}
+
 .site-header {
   display: flex;
   justify-content: space-between;
@@ -123,6 +128,7 @@ button {
   width: min(1180px, 92vw);
   margin: 0 auto;
   padding: 2rem 0 4rem;
+  flex: 1;
 }
 
 .hero {
@@ -417,6 +423,55 @@ button {
   gap: 0.9rem;
 }
 
+.site-footer {
+  width: min(1180px, 92vw);
+  margin: 0 auto 2rem;
+  padding: 1.6rem 1.8rem;
+  border-radius: 32px;
+  background:
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.45), transparent 32%),
+    linear-gradient(135deg, rgba(15, 118, 110, 0.92), rgba(22, 78, 99, 0.94));
+  color: #f8fafc;
+  box-shadow: 0 24px 70px rgba(10, 53, 60, 0.18);
+}
+
+.site-footer__inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  align-items: start;
+}
+
+.site-footer__eyebrow {
+  margin: 0 0 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.78rem;
+  color: rgba(248, 250, 252, 0.76);
+}
+
+.site-footer h2 {
+  margin: 0;
+  max-width: 14ch;
+  font-size: clamp(1.5rem, 3.2vw, 2.5rem);
+  line-height: 1;
+}
+
+.site-footer__links {
+  display: grid;
+  gap: 0.7rem;
+  min-width: 140px;
+}
+
+.site-footer__links a {
+  color: rgba(248, 250, 252, 0.92);
+}
+
+.site-footer__note {
+  margin: 1.2rem 0 0;
+  color: rgba(248, 250, 252, 0.78);
+}
+
 @media (max-width: 900px) {
   .hero,
   .listing-hero,
@@ -465,5 +520,9 @@ button {
 
   .detail-columns {
     grid-template-columns: 1fr;
+  }
+
+  .site-footer__inner {
+    flex-direction: column;
   }
 }
