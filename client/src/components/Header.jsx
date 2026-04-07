@@ -11,12 +11,16 @@ const Header = () => {
         <span className="brand__text">StaySpace</span>
       </Link>
       <nav className="nav-links">
-        <NavLink to="/">Homes</NavLink>
-        <NavLink to="/bookings">Trips</NavLink>
+        <NavLink className="nav-pill" to="/">
+          Homes
+        </NavLink>
+        <NavLink className="nav-pill nav-pill--trip" to="/bookings">
+          Trips
+        </NavLink>
         {user ? (
           <>
             <span className="user-chip">{user.name}</span>
-            <button className="ghost-button" onClick={logout} type="button">
+            <button className="ghost-button nav-logout" onClick={logout} type="button">
               Logout
             </button>
           </>
