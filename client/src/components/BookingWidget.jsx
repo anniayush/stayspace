@@ -26,7 +26,9 @@ const BookingWidget = ({ listing }) => {
   const [form, setForm] = useState({
     startDate: "",
     endDate: "",
-    guests: 1
+    guests: 1,
+    reservationName: "",
+    reservationAge: ""
   });
   const [status, setStatus] = useState("");
   const [error, setError] = useState("");
@@ -66,6 +68,8 @@ const BookingWidget = ({ listing }) => {
       startDate: form.startDate,
       endDate: form.endDate,
       guests: Number(form.guests),
+      reservationName: form.reservationName.trim(),
+      reservationAge: Number(form.reservationAge),
       razorpayOrderId,
       razorpayPaymentId,
       razorpaySignature
@@ -88,7 +92,9 @@ const BookingWidget = ({ listing }) => {
         listingId: listing._id,
         startDate: form.startDate,
         endDate: form.endDate,
-        guests: Number(form.guests)
+        guests: Number(form.guests),
+        reservationName: form.reservationName.trim(),
+        reservationAge: Number(form.reservationAge)
       });
 
       const keyId = getRazorpayKeyId(data.keyId);
@@ -113,12 +119,14 @@ const BookingWidget = ({ listing }) => {
           }
         },
         prefill: {
-          name: user.name,
+          name: form.reservationName || user.name,
           email: user.email
         },
         notes: {
           listingId: listing._id,
-          guests: String(form.guests)
+          guests: String(form.guests),
+          reservationName: form.reservationName,
+          reservationAge: String(form.reservationAge)
         },
         theme: {
           color: "#1f6b52"
@@ -173,6 +181,29 @@ const BookingWidget = ({ listing }) => {
           value={form.guests}
         />
       </label>
+      <label>
+        Reservation name
+        <input
+          name="reservationName"
+          onChange={handleChange}
+          placeholder="Full name for reservation"
+          required
+          type="text"
+          value={form.reservationName}
+        />
+      </label>
+      <label>
+        Reservation age
+        <input
+          min="0"
+          name="reservationAge"
+          onChange={handleChange}
+          placeholder="Age"
+          required
+          type="number"
+          value={form.reservationAge}
+        />
+      </label>
       <p className="price-summary">
         {formatCurrency(listing.pricePerNight)} x {nights || 0} night(s)
       </p>
@@ -191,7 +222,7 @@ const BookingWidget = ({ listing }) => {
         {submitting ? "Opening payment..." : "Reserve"}
       </button>
       <p className="booking-note">
-        Secure payment for {form.guests} guest(s) through Razorpay checkout.
+        Secure payment for {form.guests} guest(s), reserved under {form.reservationName || "your name"}.
       </p>
       {status ? <p className="form-success">{status}</p> : null}
       {error ? <p className="form-error">{error}</p> : null}

@@ -24,6 +24,16 @@ const bookingSchema = new mongoose.Schema(
       type: Number,
       required: true
     },
+    reservationName: {
+      type: String,
+      required: true,
+      trim: true
+    },
+    reservationAge: {
+      type: Number,
+      required: true,
+      min: 0
+    },
     nights: {
       type: Number,
       required: true

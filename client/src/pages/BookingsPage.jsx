@@ -58,6 +58,9 @@ const BookingsPage = () => {
               <p>
                 {booking.nights} nights · ${booking.totalPrice}
               </p>
+              <p>
+                {booking.guests} guest(s) · {booking.reservationName}, age {booking.reservationAge}
+              </p>
               <p className="booking-status">{booking.paymentStatus}</p>
             </div>
           </article>

@@ -52,7 +52,7 @@ const createRazorpayOrder = async ({ amount, receipt, notes }) => {
 
 export const createOrder = async (req, res) => {
   try {
-    const { listingId, startDate, endDate, guests } = req.body;
+    const { listingId, startDate, endDate, guests, reservationName, reservationAge } = req.body;
 
     const listing = await Listing.findById(listingId);
     if (!listing) {
@@ -64,6 +64,14 @@ export const createOrder = async (req, res) => {
       return res.status(400).json({ message: "Dates are invalid" });
     }
 
+    if (!reservationName?.trim()) {
+      return res.status(400).json({ message: "Reservation name is required" });
+    }
+
+    if (!Number.isFinite(Number(reservationAge)) || Number(reservationAge) < 0) {
+      return res.status(400).json({ message: "Reservation age is invalid" });
+    }
+
     const amount = getBookingTotal(listing, nights) * 100;
     const order = await createRazorpayOrder({
       amount,
@@ -72,6 +80,8 @@ export const createOrder = async (req, res) => {
         listingId,
         guests: String(guests),
         nights: String(nights),
+        reservationName: reservationName.trim(),
+        reservationAge: String(reservationAge),
         userId: String(req.user._id)
       }
     });
@@ -95,6 +105,8 @@ export const verifyPaymentAndCreateBooking = async (req, res) => {
       startDate,
       endDate,
       guests,
+      reservationName,
+      reservationAge,
       razorpayOrderId,
       razorpayPaymentId,
       razorpaySignature
@@ -108,6 +120,14 @@ export const verifyPaymentAndCreateBooking = async (req, res) => {
     const nights = getNightCount(startDate, endDate);
     if (!nights) {
       return res.status(400).json({ message: "Dates are invalid" });
+    }
+
+    if (!reservationName?.trim()) {
+      return res.status(400).json({ message: "Reservation name is required" });
+    }
+
+    if (!Number.isFinite(Number(reservationAge)) || Number(reservationAge) < 0) {
+      return res.status(400).json({ message: "Reservation age is invalid" });
     }
 
     const secret = process.env.RAZORPAY_KEY_SECRET;
@@ -130,6 +150,8 @@ export const verifyPaymentAndCreateBooking = async (req, res) => {
       startDate,
       endDate,
       guests,
+      reservationName: reservationName.trim(),
+      reservationAge: Number(reservationAge),
       nights,
       totalPrice: getBookingTotal(listing, nights),
       paymentStatus: "paid",
