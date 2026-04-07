@@ -53,32 +53,10 @@ npm run build
 npm run seed
 ```
 
-## Environment Variables
-
-Create a `.env` file inside `server/` for backend configuration.
-
-Typical values:
-
-```env
-PORT=5001
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
-CLIENT_URL=http://localhost:5173
-RAZORPAY_KEY_ID=your_razorpay_key_id
-RAZORPAY_KEY_SECRET=your_razorpay_key_secret
-```
-
-Optional frontend env in `client/.env`:
-
-```env
-VITE_API_URL=http://localhost:5001/api
-VITE_RAZORPAY_KEY_ID=your_razorpay_key_id
-```
-
 ## Running Locally
 
 1. Install dependencies
-2. Add environment variables
+2. Add the required local configuration files for the client and server
 3. Start MongoDB
 4. Run:
 
