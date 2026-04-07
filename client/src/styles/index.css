@@ -468,6 +468,10 @@ button {
   isolation: isolate;
 }
 
+.login-page.auth-page {
+  align-items: stretch;
+}
+
 .login-page__art {
   position: absolute;
   inset: 0;
@@ -509,8 +513,67 @@ button {
   border: 28px solid rgba(31, 27, 22, 0.08);
 }
 
+.login-page__content {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(360px, 460px);
+  gap: 1.4rem;
+  align-items: stretch;
+  width: 100%;
+}
+
+.login-page__intro {
+  padding: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100%;
+}
+
+.login-page__intro h1 {
+  font-size: clamp(2rem, 4vw, 3.6rem);
+  margin: 0.25rem 0 0.8rem;
+}
+
+.login-page__copy {
+  max-width: 54ch;
+  color: #55493f;
+  margin: 0 0 1.4rem;
+}
+
+.login-page__benefits {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.login-page__benefit {
+  display: grid;
+  gap: 0.2rem;
+  padding: 1rem 1.1rem;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.58);
+  border: 1px solid rgba(31, 27, 22, 0.08);
+}
+
+.login-page__benefit strong {
+  font-size: 1rem;
+}
+
+.login-page__benefit span {
+  color: #5e5248;
+}
+
+.login-page__form-wrap {
+  display: flex;
+  align-items: center;
+}
+
 .auth-form {
   width: min(460px, 100%);
+}
+
+.login-page .auth-form {
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 28px 80px rgba(42, 32, 22, 0.14);
 }
 
 .bookings-list {
@@ -620,6 +683,14 @@ button {
     right: -4%;
     bottom: 8%;
     border-width: 18px;
+  }
+
+  .login-page__content {
+    grid-template-columns: 1fr;
+  }
+
+  .login-page__intro {
+    padding: 1.4rem;
   }
 
   .detail-columns {
