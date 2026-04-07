@@ -446,6 +446,16 @@ button {
   margin-bottom: 0.8rem;
 }
 
+.booking-widget__guest-grid {
+  display: grid;
+  grid-template-columns: 0.8fr 1.6fr 0.9fr;
+  gap: 0.8rem;
+}
+
+.booking-widget__guest-grid label {
+  margin-bottom: 0;
+}
+
 .price-summary,
 .booking-note,
 .auth-form__footer {
@@ -791,6 +801,10 @@ button {
   }
 
   .detail-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-widget__guest-grid {
     grid-template-columns: 1fr;
   }
 

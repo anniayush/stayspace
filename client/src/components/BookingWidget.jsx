@@ -170,40 +170,42 @@ const BookingWidget = ({ listing }) => {
         Check out
         <input name="endDate" onChange={handleChange} required type="date" value={form.endDate} />
       </label>
-      <label>
-        Guests
-        <input
-          max={listing.guests}
-          min="1"
-          name="guests"
-          onChange={handleChange}
-          type="number"
-          value={form.guests}
-        />
-      </label>
-      <label>
-        Reservation name
-        <input
-          name="reservationName"
-          onChange={handleChange}
-          placeholder="Full name for reservation"
-          required
-          type="text"
-          value={form.reservationName}
-        />
-      </label>
-      <label>
-        Reservation age
-        <input
-          min="0"
-          name="reservationAge"
-          onChange={handleChange}
-          placeholder="Age"
-          required
-          type="number"
-          value={form.reservationAge}
-        />
-      </label>
+      <div className="booking-widget__guest-grid">
+        <label>
+          Guests
+          <input
+            max={listing.guests}
+            min="1"
+            name="guests"
+            onChange={handleChange}
+            type="number"
+            value={form.guests}
+          />
+        </label>
+        <label className="booking-widget__name-field">
+          Reservation name
+          <input
+            name="reservationName"
+            onChange={handleChange}
+            placeholder="Full name for reservation"
+            required
+            type="text"
+            value={form.reservationName}
+          />
+        </label>
+        <label>
+          Reservation age
+          <input
+            min="0"
+            name="reservationAge"
+            onChange={handleChange}
+            placeholder="Age"
+            required
+            type="number"
+            value={form.reservationAge}
+          />
+        </label>
+      </div>
       <p className="price-summary">
         {formatCurrency(listing.pricePerNight)} x {nights || 0} night(s)
       </p>
