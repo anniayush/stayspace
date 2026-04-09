@@ -31,6 +31,33 @@ const ListingPage = () => {
     );
   }, [listing]);
 
+  const reviews = useMemo(() => {
+    if (!listing) {
+      return [];
+    }
+
+    return [
+      {
+        name: "Aditi",
+        stayType: "Weekend stay",
+        rating: 5,
+        copy: `Beautiful stay in ${listing.location}. The place felt exactly like the photos and the host communication was smooth.`
+      },
+      {
+        name: "Rohan",
+        stayType: "Family trip",
+        rating: 5,
+        copy: `The ${listing.category.toLowerCase()} vibe really stood out. Clean rooms, easy check-in, and a very comfortable overall experience.`
+      },
+      {
+        name: "Mira",
+        stayType: "Short escape",
+        rating: 4,
+        copy: `Great location, strong amenities, and a calm atmosphere. I would book this place again for another quick trip.`
+      }
+    ];
+  }, [listing]);
+
   if (error) {
     return <p className="form-error">{error}</p>;
   }
@@ -124,6 +151,29 @@ const ListingPage = () => {
           src={`https://www.google.com/maps?q=${mapQuery}&z=13&output=embed`}
           title={`${listing.title} map`}
         />
+      </section>
+
+      <section className="listing-reviews panel">
+        <div className="listing-reviews__header">
+          <div>
+            <p className="eyebrow">Guest Reviews</p>
+            <h2>{listing.rating} average rating from recent stays</h2>
+          </div>
+        </div>
+        <div className="listing-reviews__grid">
+          {reviews.map((review) => (
+            <article className="review-card" key={`${review.name}-${review.stayType}`}>
+              <div className="review-card__top">
+                <div>
+                  <strong>{review.name}</strong>
+                  <p>{review.stayType}</p>
+                </div>
+                <span>{"★".repeat(review.rating)}</span>
+              </div>
+              <p>{review.copy}</p>
+            </article>
+          ))}
+        </div>
       </section>
     </div>
   );

@@ -521,6 +521,43 @@ button {
   border-radius: 24px;
 }
 
+.listing-reviews {
+  margin-top: 1.5rem;
+  padding: 1.25rem;
+}
+
+.listing-reviews__header h2 {
+  margin: 0.2rem 0 0;
+}
+
+.listing-reviews__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.review-card {
+  padding: 1rem 1.1rem;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid rgba(31, 27, 22, 0.08);
+}
+
+.review-card__top {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+  align-items: start;
+  margin-bottom: 0.7rem;
+}
+
+.review-card__top p,
+.review-card p:last-child {
+  margin: 0;
+  color: #55493f;
+}
+
 .fee-breakdown {
   margin: 0.5rem 0 1rem;
   padding: 0.85rem 1rem;
@@ -841,6 +878,7 @@ body[data-theme="dark"] .auth-form,
 body[data-theme="dark"] .login-page__benefit,
 body[data-theme="dark"] .login-page__info-card,
 body[data-theme="dark"] .login-page__support,
+body[data-theme="dark"] .review-card,
 body[data-theme="dark"] .nav-pill,
 body[data-theme="dark"] .nav-login,
 body[data-theme="dark"] .ghost-button,
@@ -875,6 +913,8 @@ body[data-theme="dark"] .password-page__reset-link,
 body[data-theme="dark"] .discovery-banner p,
 body[data-theme="dark"] .empty-results p,
 body[data-theme="dark"] .trust-card p:last-child,
+body[data-theme="dark"] .review-card__top p,
+body[data-theme="dark"] .review-card p:last-child,
 body[data-theme="dark"] .booking-timeline__step {
   color: #a9bbb4;
 }
@@ -978,6 +1018,10 @@ body[data-theme="dark"] .booking-timeline__step--current .booking-timeline__dot 
   .listing-map__header {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .listing-reviews__grid {
+    grid-template-columns: 1fr;
   }
 
   .detail-columns {
