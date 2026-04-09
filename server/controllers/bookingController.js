@@ -1,6 +1,8 @@
 import crypto from "crypto";
 import Booking from "../models/Booking.js";
 import Listing from "../models/Listing.js";
+import Notification from "../models/Notification.js";
+import { sendMail } from "../utils/sendMail.js";
 
 const getNightCount = (startDate, endDate) => {
   const start = new Date(startDate);
@@ -24,6 +26,30 @@ const getResolvedBookingStatus = (booking) => {
   }
 
   return booking.bookingStatus || "pending";
+};
+
+const createBookingNotification = async ({ booking, user, type }) => {
+  const statusLabel = type === "booking-confirmed" ? "confirmed" : "cancelled";
+  const title =
+    type === "booking-confirmed" ? "Booking confirmed" : "Booking cancelled";
+  const message =
+    type === "booking-confirmed"
+      ? `${booking.listing.title} is confirmed for ${booking.reservationName}.`
+      : `${booking.listing.title} has been cancelled.`;
+
+  await Notification.create({
+    user: user._id,
+    booking: booking._id,
+    type,
+    title,
+    message
+  });
+
+  await sendMail({
+    to: user.email,
+    subject: `StaySpace: booking ${statusLabel}`,
+    text: `${title}\n\n${message}\nDates: ${new Date(booking.startDate).toLocaleDateString()} to ${new Date(booking.endDate).toLocaleDateString()}`
+  });
 };
 
 const createRazorpayOrder = async ({ amount, receipt, notes }) => {
@@ -174,6 +200,11 @@ export const verifyPaymentAndCreateBooking = async (req, res) => {
     });
 
     const populatedBooking = await booking.populate("listing");
+    await createBookingNotification({
+      booking: populatedBooking,
+      user: req.user,
+      type: "booking-confirmed"
+    });
     res.status(201).json(populatedBooking);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -192,6 +223,44 @@ export const getMyBookings = async (req, res) => {
         currentStatus: getResolvedBookingStatus(booking)
       }))
     );
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const cancelBooking = async (req, res) => {
+  try {
+    const booking = await Booking.findOne({
+      _id: req.params.id,
+      user: req.user._id
+    }).populate("listing");
+
+    if (!booking) {
+      return res.status(404).json({ message: "Booking not found" });
+    }
+
+    if (getResolvedBookingStatus(booking) === "done") {
+      return res.status(400).json({ message: "Completed bookings cannot be cancelled" });
+    }
+
+    if (booking.bookingStatus === "cancelled") {
+      return res.status(400).json({ message: "Booking is already cancelled" });
+    }
+
+    booking.bookingStatus = "cancelled";
+    booking.paymentStatus = "pending";
+    await booking.save();
+
+    await createBookingNotification({
+      booking,
+      user: req.user,
+      type: "booking-cancelled"
+    });
+
+    res.json({
+      ...booking.toObject(),
+      currentStatus: getResolvedBookingStatus(booking)
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  cancelBooking,
   createOrder,
   getMyBookings,
   verifyPaymentAndCreateBooking
@@ -10,6 +11,7 @@ const router = express.Router();
 
 router.use(protect);
 router.get("/mine", getMyBookings);
+router.patch("/:id/cancel", cancelBooking);
 router.post("/", verifyPaymentAndCreateBooking);
 router.post("/order", createOrder);
 

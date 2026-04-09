@@ -9,6 +9,7 @@ const BookingsPage = () => {
   const { user, loading } = useAuth();
   const [bookings, setBookings] = useState([]);
   const [error, setError] = useState("");
+  const [actionError, setActionError] = useState("");
 
   useEffect(() => {
     if (!user) {
@@ -26,6 +27,19 @@ const BookingsPage = () => {
 
     loadBookings();
   }, [user]);
+
+  const handleCancelBooking = async (bookingId) => {
+    setActionError("");
+
+    try {
+      const { data } = await api.patch(`/bookings/${bookingId}/cancel`);
+      setBookings((current) =>
+        current.map((booking) => (booking._id === bookingId ? data : booking))
+      );
+    } catch (requestError) {
+      setActionError(requestError.response?.data?.message || "Unable to cancel booking");
+    }
+  };
 
   if (loading) {
     return <p>Loading profile...</p>;
@@ -47,6 +61,7 @@ const BookingsPage = () => {
     <div className="page">
       <h1>Your trips</h1>
       {error ? <p className="form-error">{error}</p> : null}
+      {actionError ? <p className="form-error">{actionError}</p> : null}
       <div className="bookings-list">
         {bookings.map((booking) => (
           <article className="panel booking-card" key={booking._id}>
@@ -90,6 +105,15 @@ const BookingsPage = () => {
                   );
                 })}
               </div>
+              {booking.currentStatus !== "cancelled" && booking.currentStatus !== "done" ? (
+                <button
+                  className="ghost-button booking-cancel-button"
+                  onClick={() => handleCancelBooking(booking._id)}
+                  type="button"
+                >
+                  Cancel booking
+                </button>
+              ) : null}
             </div>
           </article>
         ))}
