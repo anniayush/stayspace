@@ -62,9 +62,6 @@ const Header = () => {
         <NavLink className="nav-pill nav-pill--trip" to="/bookings">
           Trips
         </NavLink>
-        <NavLink className="nav-pill" to="/wishlist">
-          Wishlist
-        </NavLink>
         {user ? (
           <>
             <span className="user-chip">{user.name}</span>
@@ -108,6 +105,9 @@ const Header = () => {
               </button>
               {dashboardMenuOpen ? (
                 <div className="dashboard-menu__panel">
+                  <NavLink className="ghost-button dashboard-menu__login" to="/wishlist">
+                    Wishlist
+                  </NavLink>
                   <button className="ghost-button theme-toggle" onClick={toggleTheme} type="button">
                     {theme === "dark" ? "Light mode" : "Dark mode"}
                   </button>
