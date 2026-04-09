@@ -730,6 +730,45 @@ button {
   align-items: center;
 }
 
+.booking-card__content {
+  flex: 1;
+}
+
+.booking-timeline {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.9rem;
+}
+
+.booking-timeline__step {
+  display: grid;
+  gap: 0.35rem;
+  color: #8d8278;
+  text-transform: capitalize;
+}
+
+.booking-timeline__dot {
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(31, 27, 22, 0.12);
+}
+
+.booking-timeline__step--complete,
+.booking-timeline__step--current {
+  color: #174c3d;
+}
+
+.booking-timeline__step--complete .booking-timeline__dot,
+.booking-timeline__step--current .booking-timeline__dot {
+  background: rgba(31, 107, 82, 0.72);
+}
+
+.booking-timeline__step--current {
+  font-weight: 700;
+}
+
 .checkout-form {
   display: grid;
   gap: 0.9rem;
@@ -835,7 +874,8 @@ body[data-theme="dark"] .password-page__copy,
 body[data-theme="dark"] .password-page__reset-link,
 body[data-theme="dark"] .discovery-banner p,
 body[data-theme="dark"] .empty-results p,
-body[data-theme="dark"] .trust-card p:last-child {
+body[data-theme="dark"] .trust-card p:last-child,
+body[data-theme="dark"] .booking-timeline__step {
   color: #a9bbb4;
 }
 
@@ -860,6 +900,21 @@ body[data-theme="dark"] .site-footer {
   background:
     radial-gradient(circle at top right, rgba(255, 255, 255, 0.08), transparent 32%),
     linear-gradient(135deg, rgba(8, 53, 56, 0.96), rgba(15, 45, 59, 0.96));
+}
+
+body[data-theme="dark"] .booking-timeline__dot {
+  background: rgba(236, 241, 239, 0.16);
+}
+
+body[data-theme="dark"] .booking-timeline__step--complete,
+body[data-theme="dark"] .booking-timeline__step--current,
+body[data-theme="dark"] .booking-status {
+  color: #6dd4b5;
+}
+
+body[data-theme="dark"] .booking-timeline__step--complete .booking-timeline__dot,
+body[data-theme="dark"] .booking-timeline__step--current .booking-timeline__dot {
+  background: #0f8c74;
 }
 
 @media (max-width: 900px) {
@@ -931,6 +986,10 @@ body[data-theme="dark"] .site-footer {
 
   .booking-widget__guest-grid {
     grid-template-columns: 1fr;
+  }
+
+  .booking-timeline {
+    grid-template-columns: 1fr 1fr;
   }
 
   .site-footer__inner {

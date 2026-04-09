@@ -14,6 +14,18 @@ const getBookingTotal = (listing, nights) =>
   (listing.priceDetails?.cleaningFee || 0) +
   (listing.priceDetails?.serviceFee || 0);
 
+const getResolvedBookingStatus = (booking) => {
+  if (booking.bookingStatus === "cancelled") {
+    return "cancelled";
+  }
+
+  if (booking.endDate && new Date(booking.endDate) < new Date()) {
+    return "done";
+  }
+
+  return booking.bookingStatus || "pending";
+};
+
 const createRazorpayOrder = async ({ amount, receipt, notes }) => {
   const keyId = process.env.RAZORPAY_KEY_ID;
   const keySecret = process.env.RAZORPAY_KEY_SECRET;
@@ -154,6 +166,7 @@ export const verifyPaymentAndCreateBooking = async (req, res) => {
       reservationAge: Number(reservationAge),
       nights,
       totalPrice: getBookingTotal(listing, nights),
+      bookingStatus: "confirmed",
       paymentStatus: "paid",
       razorpayOrderId,
       razorpayPaymentId,
@@ -173,7 +186,12 @@ export const getMyBookings = async (req, res) => {
       .populate("listing")
       .sort({ createdAt: -1 });
 
-    res.json(bookings);
+    res.json(
+      bookings.map((booking) => ({
+        ...booking.toObject(),
+        currentStatus: getResolvedBookingStatus(booking)
+      }))
+    );
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
