@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import api from "../api/api";
 import BookingWidget from "../components/BookingWidget";
@@ -20,6 +20,16 @@ const ListingPage = () => {
 
     loadListing();
   }, [id]);
+
+  const mapQuery = useMemo(() => {
+    if (!listing) {
+      return "";
+    }
+
+    return encodeURIComponent(
+      `${listing.address.street}, ${listing.address.city}, ${listing.address.state}, ${listing.country}`
+    );
+  }, [listing]);
 
   if (error) {
     return <p className="form-error">{error}</p>;
@@ -90,6 +100,30 @@ const ListingPage = () => {
           </div>
         </article>
         <BookingWidget listing={listing} />
+      </section>
+
+      <section className="listing-map panel">
+        <div className="listing-map__header">
+          <div>
+            <p className="eyebrow">Map View</p>
+            <h2>Explore the listing location</h2>
+          </div>
+          <a
+            className="button-link primary-button listing-map__link"
+            href={`https://www.google.com/maps/search/?api=1&query=${mapQuery}`}
+            rel="noreferrer"
+            target="_blank"
+          >
+            Open in Maps
+          </a>
+        </div>
+        <iframe
+          className="listing-map__frame"
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          src={`https://www.google.com/maps?q=${mapQuery}&z=13&output=embed`}
+          title={`${listing.title} map`}
+        />
       </section>
     </div>
   );

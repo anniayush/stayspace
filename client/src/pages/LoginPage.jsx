@@ -61,7 +61,8 @@ const LoginPage = () => {
             <AuthForm
               footer={
                 <>
-                  Need an account? <Link to="/register">Create one</Link>
+                  Need an account? <Link to="/register">Create one</Link> ·{" "}
+                  <Link to="/forgot-password">Forgot password?</Link>
                 </>
               }
               onSubmit={handleSubmit}
