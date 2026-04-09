@@ -9,6 +9,7 @@ const Header = () => {
   const { theme, toggleTheme } = useTheme();
   const [notifications, setNotifications] = useState([]);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [dashboardMenuOpen, setDashboardMenuOpen] = useState(false);
 
   useEffect(() => {
     if (!user) {
@@ -42,6 +43,10 @@ const Header = () => {
         // Ignore notification read errors in the header.
       }
     }
+  };
+
+  const toggleDashboardMenu = () => {
+    setDashboardMenuOpen((current) => !current);
   };
 
   return (
@@ -86,22 +91,58 @@ const Header = () => {
                 </div>
               ) : null}
             </div>
-            <button className="ghost-button theme-toggle" onClick={toggleTheme} type="button">
-              {theme === "dark" ? "Light mode" : "Dark mode"}
-            </button>
-            <button className="ghost-button nav-logout" onClick={logout} type="button">
-              Logout
-            </button>
+            <div className="dashboard-menu">
+              <button
+                aria-expanded={dashboardMenuOpen}
+                aria-label="Open dashboard menu"
+                className="ghost-button dashboard-menu__toggle"
+                onClick={toggleDashboardMenu}
+                type="button"
+              >
+                <span />
+                <span />
+                <span />
+              </button>
+              {dashboardMenuOpen ? (
+                <div className="dashboard-menu__panel">
+                  <button className="ghost-button theme-toggle" onClick={toggleTheme} type="button">
+                    {theme === "dark" ? "Light mode" : "Dark mode"}
+                  </button>
+                  <button className="ghost-button nav-logout" onClick={logout} type="button">
+                    Logout
+                  </button>
+                </div>
+              ) : null}
+            </div>
           </>
         ) : (
           <>
-            <button className="ghost-button theme-toggle" onClick={toggleTheme} type="button">
-              {theme === "dark" ? "Light mode" : "Dark mode"}
-            </button>
-            <NavLink className="nav-login" to="/login">
-              Login
-            </NavLink>
-            <NavLink to="/register">Sign up</NavLink>
+            <div className="dashboard-menu">
+              <button
+                aria-expanded={dashboardMenuOpen}
+                aria-label="Open dashboard menu"
+                className="ghost-button dashboard-menu__toggle"
+                onClick={toggleDashboardMenu}
+                type="button"
+              >
+                <span />
+                <span />
+                <span />
+              </button>
+              {dashboardMenuOpen ? (
+                <div className="dashboard-menu__panel">
+                  <button className="ghost-button theme-toggle" onClick={toggleTheme} type="button">
+                    {theme === "dark" ? "Light mode" : "Dark mode"}
+                  </button>
+                  <NavLink className="nav-login dashboard-menu__login" to="/login">
+                    Login
+                  </NavLink>
+                  <NavLink className="ghost-button dashboard-menu__login" to="/register">
+                    Sign up
+                  </NavLink>
+                </div>
+              ) : null}
+            </div>
           </>
         )}
       </nav>
