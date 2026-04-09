@@ -62,6 +62,9 @@ const Header = () => {
         <NavLink className="nav-pill nav-pill--trip" to="/bookings">
           Trips
         </NavLink>
+        <NavLink className="nav-pill" to="/wishlist">
+          Wishlist
+        </NavLink>
         {user ? (
           <>
             <span className="user-chip">{user.name}</span>

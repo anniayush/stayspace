@@ -453,6 +453,7 @@ button {
   border-radius: 28px;
   background: rgba(255, 255, 255, 0.75);
   border: 1px solid rgba(31, 27, 22, 0.08);
+  position: relative;
   transition:
     transform 180ms ease,
     box-shadow 180ms ease,
@@ -490,6 +491,31 @@ button {
 
 .listing-card__image {
   height: 280px;
+}
+
+.favorite-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1;
+  min-width: 48px;
+  min-height: 48px;
+  padding: 0.7rem 0.9rem;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 12px 30px rgba(31, 27, 22, 0.12);
+}
+
+.favorite-button--active {
+  color: #b42318;
+}
+
+.listing-favorite-button {
+  position: static;
+  box-shadow: none;
+  border: 1px solid rgba(31, 27, 22, 0.08);
+  margin-bottom: 0.9rem;
 }
 
 .listing-page__image {
@@ -982,6 +1008,7 @@ body[data-theme="dark"] .review-card,
 body[data-theme="dark"] .dashboard-menu__panel,
 body[data-theme="dark"] .notification-panel,
 body[data-theme="dark"] .notification-item,
+body[data-theme="dark"] .favorite-button,
 body[data-theme="dark"] .nav-pill,
 body[data-theme="dark"] .nav-login,
 body[data-theme="dark"] .ghost-button,
@@ -1060,6 +1087,10 @@ body[data-theme="dark"] .booking-status {
 body[data-theme="dark"] .booking-timeline__step--complete .booking-timeline__dot,
 body[data-theme="dark"] .booking-timeline__step--current .booking-timeline__dot {
   background: #0f8c74;
+}
+
+body[data-theme="dark"] .favorite-button--active {
+  color: #ff9b9b;
 }
 
 body[data-theme="dark"] .notification-item--new {

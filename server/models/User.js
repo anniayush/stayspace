@@ -31,6 +31,11 @@ const userSchema = new mongoose.Schema(
     avatar: {
       type: String,
       default: ""
+    },
+    favorites: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "Listing",
+      default: []
     }
   },
   { timestamps: true }

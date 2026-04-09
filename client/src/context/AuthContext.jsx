@@ -59,8 +59,28 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem(USER_KEY);
   };
 
+  const toggleFavorite = async (listingId) => {
+    const { data } = await api.post(`/auth/favorites/${listingId}`);
+
+    setUser((current) => {
+      if (!current) {
+        return current;
+      }
+
+      const nextUser = {
+        ...current,
+        favorites: data.favorites
+      };
+
+      localStorage.setItem(USER_KEY, JSON.stringify(nextUser));
+      return nextUser;
+    });
+
+    return data;
+  };
+
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, register, logout, toggleFavorite }}>
       {children}
     </AuthContext.Provider>
   );

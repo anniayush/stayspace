@@ -1,5 +1,6 @@
 import crypto from "crypto";
 import jwt from "jsonwebtoken";
+import Listing from "../models/Listing.js";
 import User from "../models/User.js";
 
 const createToken = (userId) =>
@@ -22,7 +23,8 @@ const sendAuthResponse = (res, user, statusCode) => {
         id: user._id,
         name: user.name,
         email: user.email,
-        avatar: user.avatar
+        avatar: user.avatar,
+        favorites: user.favorites || []
       }
     });
 };
@@ -109,6 +111,46 @@ export const resetPassword = async (req, res) => {
 
 export const getProfile = async (req, res) => {
   res.json(req.user);
+};
+
+export const toggleFavorite = async (req, res) => {
+  try {
+    const { listingId } = req.params;
+    const listing = await Listing.findById(listingId);
+
+    if (!listing) {
+      return res.status(404).json({ message: "Listing not found" });
+    }
+
+    const isFavorite = req.user.favorites.some((favoriteId) => favoriteId.toString() === listingId);
+    const nextFavorites = isFavorite
+      ? req.user.favorites.filter((favoriteId) => favoriteId.toString() !== listingId)
+      : [...req.user.favorites, listing._id];
+
+    req.user.favorites = nextFavorites;
+    await req.user.save();
+
+    res.json({
+      favorites: req.user.favorites,
+      saved: !isFavorite
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getWishlist = async (req, res) => {
+  try {
+    const favorites = req.user.favorites || [];
+    const listings = await Listing.find({ _id: { $in: favorites } });
+    const sortedListings = favorites
+      .map((favoriteId) => listings.find((listing) => listing._id.toString() === favoriteId.toString()))
+      .filter(Boolean);
+
+    res.json(sortedListings);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 export const logoutUser = async (req, res) => {

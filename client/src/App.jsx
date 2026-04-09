@@ -10,6 +10,7 @@ import ListingPage from "./pages/ListingPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
+import WishlistPage from "./pages/WishlistPage";
 
 const App = () => (
   <BrowserRouter>
@@ -23,6 +24,7 @@ const App = () => (
             <Route element={<ForgotPasswordPage />} path="/forgot-password" />
             <Route element={<ResetPasswordPage />} path="/reset-password/:token" />
             <Route element={<RegisterPage />} path="/register" />
+            <Route element={<WishlistPage />} path="/wishlist" />
             <Route element={<ListingPage />} path="/listings/:id" />
             <Route element={<BookingsPage />} path="/bookings" />
           </Routes>

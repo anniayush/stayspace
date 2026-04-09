@@ -1,10 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import api from "../api/api";
 import BookingWidget from "../components/BookingWidget";
+import { useAuth } from "../context/AuthContext";
 
 const ListingPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const { user, toggleFavorite } = useAuth();
   const [listing, setListing] = useState(null);
   const [error, setError] = useState("");
 
@@ -30,6 +33,17 @@ const ListingPage = () => {
       `${listing.address.street}, ${listing.address.city}, ${listing.address.state}, ${listing.country}`
     );
   }, [listing]);
+
+  const isFavorite = user?.favorites?.includes(listing?._id);
+
+  const handleFavorite = async () => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+
+    await toggleFavorite(listing._id);
+  };
 
   const reviews = useMemo(() => {
     if (!listing) {
@@ -72,6 +86,13 @@ const ListingPage = () => {
         <img alt={listing.title} className="listing-page__image" src={listing.image} />
         <div>
           <p className="eyebrow">{listing.category}</p>
+          <button
+            className={isFavorite ? "favorite-button favorite-button--active listing-favorite-button" : "favorite-button listing-favorite-button"}
+            onClick={handleFavorite}
+            type="button"
+          >
+            {isFavorite ? "♥ Saved to wishlist" : "♡ Add to wishlist"}
+          </button>
           <h1>{listing.title}</h1>
           <p>
             {listing.location}, {listing.country} · {listing.rating} rating
