@@ -1016,6 +1016,18 @@ button {
   align-items: start;
 }
 
+.chatbot__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.chatbot__logo {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+}
+
 .chatbot__header p {
   margin: 0.2rem 0 0;
   color: #5e5248;
@@ -1071,7 +1083,15 @@ button {
 }
 
 .chatbot__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
   min-width: 84px;
+}
+
+.chatbot__toggle-logo {
+  width: 20px;
+  height: 20px;
 }
 
 body[data-theme="dark"] {

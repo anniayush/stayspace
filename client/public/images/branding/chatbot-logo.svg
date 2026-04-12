@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-labelledby="title desc">
+  <title id="title">StaySpace chatbot logo</title>
+  <desc id="desc">Rounded chat bubble with spark accent for the StaySpace assistant.</desc>
+  <defs>
+    <linearGradient id="chatbotGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1f6b52" />
+      <stop offset="100%" stop-color="#164e63" />
+    </linearGradient>
+  </defs>
+  <rect width="120" height="120" rx="28" fill="url(#chatbotGradient)" />
+  <path
+    d="M29 34h62c7.18 0 13 5.82 13 13v24c0 7.18-5.82 13-13 13H66l-16 13v-13H29c-7.18 0-13-5.82-13-13V47c0-7.18 5.82-13 13-13Z"
+    fill="#f8fafc"
+  />
+  <circle cx="42" cy="59" r="5" fill="#1f6b52" />
+  <circle cx="60" cy="59" r="5" fill="#1f6b52" />
+  <circle cx="78" cy="59" r="5" fill="#1f6b52" />
+  <path d="M85 24l3.4 7.6L96 35l-7.6 3.4L85 46l-3.4-7.6L74 35l7.6-3.4Z" fill="#f8fafc" />
+</svg>

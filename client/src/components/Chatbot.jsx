@@ -64,9 +64,12 @@ const Chatbot = () => {
       {open ? (
         <section className="chatbot__panel">
           <div className="chatbot__header">
-            <div>
+            <div className="chatbot__brand">
+              <img alt="StaySpace assistant" className="chatbot__logo" src="/images/branding/chatbot-logo.svg" />
+              <div>
               <strong>StaySpace Chat</strong>
               <p>Quick answers for guests</p>
+              </div>
             </div>
             <button className="ghost-button chatbot__close" onClick={() => setOpen(false)} type="button">
               Close
@@ -108,7 +111,8 @@ const Chatbot = () => {
         </section>
       ) : null}
       <button className="primary-button chatbot__toggle" onClick={() => setOpen((current) => !current)} type="button">
-        Chat
+        <img alt="" className="chatbot__toggle-logo" src="/images/branding/chatbot-logo.svg" />
+        <span>Chat</span>
       </button>
     </div>
   );
