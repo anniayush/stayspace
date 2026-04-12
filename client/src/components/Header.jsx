@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import api from "../api/api";
 import { useAuth } from "../context/AuthContext";
@@ -10,6 +10,8 @@ const Header = () => {
   const [notifications, setNotifications] = useState([]);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [dashboardMenuOpen, setDashboardMenuOpen] = useState(false);
+  const dashboardMenuRef = useRef(null);
+  const notificationMenuRef = useRef(null);
 
   useEffect(() => {
     if (!user) {
@@ -28,6 +30,32 @@ const Header = () => {
 
     loadNotifications();
   }, [user]);
+
+  useEffect(() => {
+    const handlePointerDown = (event) => {
+      if (
+        dashboardMenuOpen &&
+        dashboardMenuRef.current &&
+        !dashboardMenuRef.current.contains(event.target)
+      ) {
+        setDashboardMenuOpen(false);
+      }
+
+      if (
+        notificationsOpen &&
+        notificationMenuRef.current &&
+        !notificationMenuRef.current.contains(event.target)
+      ) {
+        setNotificationsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handlePointerDown);
+
+    return () => {
+      document.removeEventListener("mousedown", handlePointerDown);
+    };
+  }, [dashboardMenuOpen, notificationsOpen]);
 
   const unreadCount = notifications.filter((notification) => !notification.read).length;
 
@@ -65,7 +93,7 @@ const Header = () => {
         {user ? (
           <>
             <span className="user-chip">{user.name}</span>
-            <div className="notification-menu">
+            <div className="notification-menu" ref={notificationMenuRef}>
               <button
                 className="ghost-button notification-toggle"
                 onClick={toggleNotifications}
@@ -91,7 +119,7 @@ const Header = () => {
                 </div>
               ) : null}
             </div>
-            <div className="dashboard-menu">
+            <div className="dashboard-menu" ref={dashboardMenuRef}>
               <button
                 aria-expanded={dashboardMenuOpen}
                 aria-label="Open dashboard menu"
@@ -120,7 +148,7 @@ const Header = () => {
           </>
         ) : (
           <>
-            <div className="dashboard-menu">
+            <div className="dashboard-menu" ref={dashboardMenuRef}>
               <button
                 aria-expanded={dashboardMenuOpen}
                 aria-label="Open dashboard menu"
