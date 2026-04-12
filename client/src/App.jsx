@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Chatbot from "./components/Chatbot";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import { AuthProvider } from "./context/AuthContext";
@@ -29,6 +30,7 @@ const App = () => (
             <Route element={<BookingsPage />} path="/bookings" />
           </Routes>
           <Footer />
+          <Chatbot />
         </div>
       </AuthProvider>
     </ThemeProvider>
