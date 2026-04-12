@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 const quickReplies = [
   "How do I book a stay?",
@@ -36,6 +36,7 @@ const getBotReply = (message) => {
 const Chatbot = () => {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
+  const chatbotRef = useRef(null);
   const [messages, setMessages] = useState([
     {
       sender: "bot",
@@ -44,6 +45,24 @@ const Chatbot = () => {
   ]);
 
   const suggestionChips = useMemo(() => quickReplies, []);
+
+  useEffect(() => {
+    if (!open) {
+      return undefined;
+    }
+
+    const handlePointerDown = (event) => {
+      if (!chatbotRef.current?.contains(event.target)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handlePointerDown);
+
+    return () => {
+      document.removeEventListener("mousedown", handlePointerDown);
+    };
+  }, [open]);
 
   const sendMessage = (message) => {
     const trimmed = message.trim();
@@ -60,7 +79,7 @@ const Chatbot = () => {
   };
 
   return (
-    <div className={open ? "chatbot chatbot--open" : "chatbot"}>
+    <div className={open ? "chatbot chatbot--open" : "chatbot"} ref={chatbotRef}>
       {open ? (
         <section className="chatbot__panel">
           <div className="chatbot__header">
