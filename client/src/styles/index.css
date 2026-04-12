@@ -418,6 +418,50 @@ button {
   color: #55493f;
 }
 
+.home-map {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 1.25rem;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.home-map__content {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+}
+
+.home-map__content h2 {
+  margin: 0.25rem 0 0.5rem;
+  font-size: clamp(1.45rem, 2.8vw, 2.5rem);
+  line-height: 1.05;
+}
+
+.home-map__content p {
+  margin: 0;
+  color: #55493f;
+}
+
+.home-map__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.home-map__stats span {
+  border-radius: 999px;
+  padding: 0.5rem 0.9rem;
+  background: rgba(31, 27, 22, 0.06);
+}
+
+.home-map__frame {
+  width: 100%;
+  min-height: 340px;
+  border: 0;
+  border-radius: 24px;
+}
+
 .empty-results {
   grid-column: 1 / -1;
   padding: 1.5rem;
@@ -1139,6 +1183,7 @@ body[data-theme="dark"] .favorite-button,
 body[data-theme="dark"] .chatbot__panel,
 body[data-theme="dark"] .chatbot__message--bot,
 body[data-theme="dark"] .chatbot__chip,
+body[data-theme="dark"] .home-map__stats span,
 body[data-theme="dark"] .nav-pill,
 body[data-theme="dark"] .nav-login,
 body[data-theme="dark"] .ghost-button,
@@ -1172,6 +1217,7 @@ body[data-theme="dark"] .password-page__copy,
 body[data-theme="dark"] .password-page__reset-link,
 body[data-theme="dark"] .discovery-banner p,
 body[data-theme="dark"] .empty-results p,
+body[data-theme="dark"] .home-map__content p,
 body[data-theme="dark"] .trust-card p:last-child,
 body[data-theme="dark"] .review-card__top p,
 body[data-theme="dark"] .review-card p:last-child,
@@ -1324,6 +1370,10 @@ body[data-theme="dark"] .booking-cancel-button {
   .discovery-banner {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .home-map {
+    grid-template-columns: 1fr;
   }
 
   .trust-strip {

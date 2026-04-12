@@ -28,6 +28,7 @@ const HomePage = () => {
       copy: "From hill escapes to beach houses, the catalog now spans multiple countries and stay styles."
     }
   ];
+  const mapQuery = encodeURIComponent("India, Switzerland, Australia, New Zealand, Europe, United States");
 
   useEffect(() => {
     const loadListings = async () => {
@@ -104,6 +105,34 @@ const HomePage = () => {
           Use the filters to narrow by category, or search by title, city, and country to find the right stay
           faster.
         </p>
+      </section>
+
+      <section className="home-map panel">
+        <div className="home-map__content">
+          <div>
+            <p className="eyebrow">Stay Map</p>
+            <h2>See where StaySpace homes are spread across regions and travel styles.</h2>
+            <p>
+              Explore a broader view of destinations across India and global locations, from hill stations to
+              beaches, cities, and design stays.
+            </p>
+          </div>
+          <div className="home-map__stats">
+            <span>India</span>
+            <span>Europe</span>
+            <span>Australia</span>
+            <span>New Zealand</span>
+            <span>United States</span>
+            <span>Switzerland</span>
+          </div>
+        </div>
+        <iframe
+          className="home-map__frame"
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          src={`https://www.google.com/maps?q=${mapQuery}&z=2&output=embed`}
+          title="StaySpace homepage map"
+        />
       </section>
 
       <section className="listing-grid">
